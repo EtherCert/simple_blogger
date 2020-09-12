@@ -14,7 +14,7 @@ if($_GET){
     $query = "delete from blogs where id = $id";
     
     if(mysqli_query($conn, $query)){
-     $message = "تم حذف المونة بنجاح"; 
+     $message = "تم حذف المدونة بنجاح"; 
     }else{
      $error = 'لم يتم الحذف بنجاح '.$mysqli_error($conn);
     }

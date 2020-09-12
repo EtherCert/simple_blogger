@@ -97,7 +97,7 @@ include('nav.php');
                            </div>
                            <div class="text-title">
                               <h3>'.$row["subject"].'</h3>
-                              <p>'.substr($row["subject"],0,100).'</p>
+                              <p>'.substr($row["details"],0,70).'</p>
                            </div>
                            <div class="blog-link"> <a class="technology" href="blog-details.php?id='.$row["id"].'">اقرأ أكثر</a> </div>
                         </div>

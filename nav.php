@@ -18,7 +18,10 @@
                   <li><a class="click-close" href="index.php#contact">تواصل معنا</a></li>
                   <?php
                   if(isset($_SESSION['id'])){
-                  echo '<li><a class="click-close sign-up" href="logout.php">خروج</a></li>';
+                  echo '
+                  <li><a class="click-close" href="blogs.php">صفحتي</a></li>
+                  <li><a class="click-close sign-up" href="logout.php">خروج</a></li>
+                  ';
                   }else{
                   echo '<li><a class="click-close sign-up" href="login.php">دخول</a></li>';    
                   }
