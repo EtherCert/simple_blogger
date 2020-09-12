@@ -41,110 +41,71 @@ include('nav.php');
                <p>كاستجابة للتطور الهائل في استخدام تقنية المعلومات في جميع الجوانب؛ ونهج السوق العالمي لتطوير العمل في المنظمات والقطاعات والمكاتب المختلفة وللحاجة المتزايدة في الأسواق المحلية والدولية؛ نقدم لك العديد من الخدمات.</p>
             </div>
             <div class="row">
+                <?php 
+                $query = "select * from blogs where category_id = 1";
+                $result = mysqli_query($conn, $query);
+                
+                if(mysqli_num_rows($result) > 0){
+                    while($row = mysqli_fetch_assoc($result)){
+                        echo '
                <div class="col-lg-4 col-md-4 col-sm-12">
                   <div class="item-pricing free">
-                     <div class="item-icon"> <span class="flaticon-air-balloon"></span> </div>
+                     <div class="item-icon"> <span><img style="width: 100px; height: 100px; border-radius: 50px;" src= img/'.$row['img'].'></span> </div>
                      <div class="price">
-                        <h4>إدارة وسائل التواصل الاجتماعي</h4>
+                        <h4>'.$row['subject'].'</h4>
                      </div>
                      <div class="options">
                         <ul>
                            <li>
-                              <p>نحن في شركة الهمس نفهم عملك وعلامتك التجارية أولاً قبل أن نبدأ في التخطيط</p>
+                              <p>'.substr($row['details'],0,100).'</p>
                            </li>
                        </ul>
                      </div>
                  </div>
-               </div>
-               <div class="col-lg-4 col-md-4 col-sm-12">
-                  <div class="item-pricing advanced">
-                     <div class="item-icon"> <span class="flaticon-plane"></span> </div>
-                     <div class="price">
-                        <h4>التسويق الإلكتروني</h4>
-                     </div>
-                     <div class="options">
-                        <ul>
-                           <li>
-                              <p>نحن في  شركة الهمس نقدم لك خدمة التسويق عبر الإنترنت </p>
-                           </li>
-                       </ul>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-lg-4 col-md-4 col-sm-12">
-                  <div class="item-pricing premium">
-                     <div class="item-icon"> <span class="flaticon-rocket"></span> </div>
-                      <div class="price">
-                      <h4>الدورات التدريبية</h4>
-                      </div>
-                     <div class="options">
-                        <ul>
-                           <li>
-                              <p>دورات تدريبية في مختلف المجالات (تقني - مهني - حرفي).</p>
-                           </li>
-                       </ul>
-                     </div>
-                  </div>
-               </div>
+               </div>';
+                }
+                }
+                ?>
             </div>
          </div>
       </section>
       <section id="news" class="blog section-padding">
          <div class="container">
             <div class="title">
-               <h2>آخر المشاركات</h2>
+               <h2>آخر الأخبار</h2>
                <p>هنالك العديد من الأنواع المتوفرة لنصوص لوريم إيبسوم، ولكن الغالبية تم تعديلها بشكل ما عبر إدخال بعض النوادر أو الكلمات العشوائية إلى النص.</p>
             </div>
             <div class="row">
                <div class="blog-items clearfix">
-                  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <?php 
+                $query = "select * from blogs where category_id = 2";
+                $result = mysqli_query($conn, $query);
+                
+                if(mysqli_num_rows($result) > 0){
+                    while($row = mysqli_fetch_assoc($result)){
+                       $cat_name =  mysqli_fetch_assoc(mysqli_query($conn,"select name from categories where id = ".$row['category_id']))['name']; 
+                        
+                        echo '<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                      <div class="blog-item">
-                        <div class="blog-img-1"></div>
-                        <div class="blog-text news">
-                           <div class="text-up">
-                              <p>Oct 14, 2018</p>
-                              <span class="news">أخبار</span> 
-                           </div>
-                           <div class="text-title">
-                              <h3>التجارة مع تحليلات المستخدم</h3>
-                              <p>خلافاَ للإعتقاد السائد فإن لوريم إيبسوم ليس نصاَ عشوائياً، بل إن له جذور في الأدب</p>
-                           </div>
-                           <div class="blog-link"> <a class="news" href="single-blog.html">اقرأ أكثر</a> </div>
+                        <div class="blog-img-3">
+                        <img style="width: 360px; height: 250px;" src="img/'.$row["img"].'">
                         </div>
-                     </div>
-                  </div>
-                  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                     <div class="blog-item">
-                        <div class="blog-img-2"></div>
-                        <div class="blog-text business">
-                           <div class="text-up">
-                              <p>Oct 14, 2018</p>
-                              <span class="business">اعمال</span> 
-                           </div>
-                           <div class="text-title">
-                              <h3>فوائد نهج DevOps</h3>
-                              <p>خلافاَ للإعتقاد السائد فإن لوريم إيبسوم ليس نصاَ عشوائياً، بل إن له جذور في الأدب</p>
-                           </div>
-                           <div class="blog-link"> <a class="business" href="single-blog.html">اقرأ أكثر</a> </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                     <div class="blog-item">
-                        <div class="blog-img-3"></div>
                         <div class="blog-text technology">
                            <div class="text-up">
-                              <p>Oct 14, 2018</p>
-                              <span class="technology">تقنية</span> 
+                              <p>'.explode(' ',$row["created_at"])[0].'</p>
+                              <span class="technology">'.$cat_name.'</span> 
                            </div>
                            <div class="text-title">
-                              <h3>ما هي DevOps ولماذا يهم؟</h3>
-                              <p>خلافاَ للإعتقاد السائد فإن لوريم إيبسوم ليس نصاَ عشوائياً، بل إن له جذور في الأدب</p>
+                              <h3>'.$row["subject"].'</h3>
+                              <p>'.substr($row["subject"],0,100).'</p>
                            </div>
-                           <div class="blog-link"> <a class="technology" href="single-blog.html">اقرأ أكثر</a> </div>
+                           <div class="blog-link"> <a class="technology" href="blog-details.php?id='.$row["id"].'">اقرأ أكثر</a> </div>
                         </div>
                      </div>
                   </div>
+              ';
+                    }}
+                    ?>
                </div>
             </div>
          </div>
@@ -162,43 +123,26 @@ include('nav.php');
                <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
                   <div id="general" class="accordion">
                      <ul class="accordion-list accordion-drop">
-                        <li class="default open">
+                          <?php 
+                $query = "select * from blogs where category_id = 3";
+                $result = mysqli_query($conn, $query);
+                
+                if(mysqli_num_rows($result) > 0){
+                    while($row = mysqli_fetch_assoc($result)){
+                        echo '<li class="default">
                            <div class="drop-title">
-                              <p>أين يمكنني الحصول على بعض؟</p>
+                              <p>'.$row['subject'].'</p>
                               <span class="icon-holder"> <span class="icon"></span> </span>
                            </div>
                            <ul class="menu-text">
-                              <li>هنالك العديد من الأنواع المتوفرة لنصوص لوريم إيبسوم، ولكن الغالبية تم تعديلها بشكل ما عبر إدخال بعض النوادر أو الكلمات العشوائية إلى النص. إن كنت تريد أن تستخدم نص لوريم إيبسوم ما، عليك أن تتحقق أولاً أن ليس هناك أي كلمات أو عبارات محرجة أو غير لائقة مخبأة في هذا النص. بينما تعمل جميع مولّدات نصوص لوريم إيبسوم على الإنترنت على إعادة تكرار مقاطع من نص لوريم إيبسوم نفسه عدة مرات بما تتطلبه الحاجة، يقوم مولّدنا هذا باستخدام كلمات من قاموس يحوي على أكثر من 200 كلمة لا تينية، مضاف إليها.</li>
+                              <li>
+                              '.$row['details'].'
+                              </li>
                            </ul>
-                        </li>
-                        <li class="default">
-                           <div class="drop-title">
-                              <p>ما هو لوريم إيبسوم؟</p>
-                              <span class="icon-holder"> <span class="icon"></span> </span>
-                           </div>
-                           <ul class="menu-text">
-                              <li>هنالك العديد من الأنواع المتوفرة لنصوص لوريم إيبسوم، ولكن الغالبية تم تعديلها بشكل ما عبر إدخال بعض النوادر أو الكلمات العشوائية إلى النص. إن كنت تريد أن تستخدم نص لوريم إيبسوم ما، عليك أن تتحقق أولاً أن ليس هناك أي كلمات أو عبارات محرجة أو غير لائقة مخبأة في هذا النص. بينما تعمل جميع مولّدات نصوص لوريم إيبسوم على الإنترنت على إعادة تكرار مقاطع من نص لوريم إيبسوم نفسه عدة مرات بما تتطلبه الحاجة، يقوم مولّدنا هذا باستخدام كلمات من قاموس يحوي على أكثر من 200 كلمة لا تينية، مضاف إليها.</li>
-                           </ul>
-                        </li>
-                        <li class="default">
-                           <div class="drop-title">
-                              <p>كيف يعمل</p>
-                              <span class="icon-holder"> <span class="icon"></span> </span>
-                           </div>
-                           <ul class="menu-text">
-                              <li>هنالك العديد من الأنواع المتوفرة لنصوص لوريم إيبسوم، ولكن الغالبية تم تعديلها بشكل ما عبر إدخال بعض النوادر أو الكلمات العشوائية إلى النص. إن كنت تريد أن تستخدم نص لوريم إيبسوم ما، عليك أن تتحقق أولاً أن ليس هناك أي كلمات أو عبارات محرجة أو غير لائقة مخبأة في هذا النص. بينما تعمل جميع مولّدات نصوص لوريم إيبسوم على الإنترنت على إعادة تكرار مقاطع من نص لوريم إيبسوم نفسه عدة مرات بما تتطلبه الحاجة، يقوم مولّدنا هذا باستخدام كلمات من قاموس يحوي على أكثر من 200 كلمة لا تينية، مضاف إليها.</li>
-                           </ul>
-                        </li>
-                        <li class="default">
-                           <div class="drop-title">
-                              <p>مجالات الاهتمام</p>
-                              <span class="icon-holder"> <span class="icon"></span> </span>
-                           </div>
-                           <ul class="menu-text">
-                              <li>هنالك العديد من الأنواع المتوفرة لنصوص لوريم إيبسوم، ولكن الغالبية تم تعديلها بشكل ما عبر إدخال بعض النوادر أو الكلمات العشوائية إلى النص. إن كنت تريد أن تستخدم نص لوريم إيبسوم ما، عليك أن تتحقق أولاً أن ليس هناك أي كلمات أو عبارات محرجة أو غير لائقة مخبأة في هذا النص. بينما تعمل جميع مولّدات نصوص لوريم إيبسوم على الإنترنت على إعادة تكرار مقاطع من نص لوريم إيبسوم نفسه عدة مرات بما تتطلبه الحاجة، يقوم مولّدنا هذا باستخدام كلمات من قاموس يحوي على أكثر من 200 كلمة لا تينية، مضاف إليها.</li>
-                           </ul>
-                        </li>
-                     </ul>
+                        </li>';
+                    }
+                }?>
+                  </ul>
                   </div>
                </div>
             </div>

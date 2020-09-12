@@ -16,21 +16,38 @@ if($_POST){
     $category_id = htmlspecialchars($_POST['category_id']);
     $details = htmlspecialchars($_POST['details']);
     $user_id = $_SESSION['id'];
-    $created_at = date('m-d-Y h:i:s a',time());
     
-    if(empty($subject) ||empty($category_id) || empty($details) || $_FILES['img']['error'] > 0){
-        $error = "حقول العنوان والتصنيف والتفاصيل مطلوبة أو هناك خلل في رفع الملف";
+    $id = htmlspecialchars($_GET['id']);
+    
+    if(empty($subject) ||empty($category_id) || empty($details)){
+        $error = "حقول العنوان والتصنيف والتفاصيل مطلوبة ";
     }else{
+        if($_FILES['img']['name']){
         move_uploaded_file($_FILES['img']['tmp_name'], 'img/'.$_FILES['img']['name']);
-        $img = $_FILES['img']['name'];
-        $query = "insert into blogs (subject, details, user_id, category_id, created_at, img) 
-        values('$subject','$details',$user_id, $category_id, '$created_at','$img')";
+        $img = $_FILES['img']['name']; 
         
-        if(mysqli_query($conn, $query)){
-            $message = "تم إضافة المدونة بنجاح";
+        $query = "update blogs set subject = '$subject', details = '$details', user_id = $user_id, category_id = $category_id, img = '$img' where id = $id";    
         }else{
-            $error = "لم يتم إضافة المدونة  ".mysqli_error($conn);
+           $query = "update blogs set subject = '$subject', details = '$details', user_id = $user_id, category_id = $category_id where id = $id";    
         }
+       if(mysqli_query($conn, $query)){
+            $message = "تم تعديل المدونة بنجاح";
+        }else{
+            $error = "لم يتم تعديل المدونة  ".mysqli_error($conn);
+        }
+    }
+}
+
+if($_GET){
+    $id = htmlspecialchars($_GET['id']);
+    
+    $query = "select * from blogs where id = $id";
+    $result = mysqli_query($conn, $query);
+    
+    if(mysqli_num_rows($result) > 0){
+        $row = mysqli_fetch_assoc($result);
+    }else{
+        header("Location: 404.php");
     }
 }
 ?>
@@ -51,7 +68,7 @@ if($_POST){
                         </li>
                         <li>
                            <span>
-                           إضافة مدونة
+                           تعديل مدونة
                            </span>
                         </li>
                      </ul>
@@ -74,9 +91,9 @@ if($_POST){
                <div class="col-lg-10 col-md-5 col-sm-12 col-xs-12">
                   <div class="col-md-12">
                      <form action="#" method="post" enctype="multipart/form-data">
-                        <h2>إضافة مدونة</h2>
+                        <h2>تعديل مدونة</h2>
                         <div class="name">
-                           <input type="text" name="subject" placeholder="العنوان" required> 
+                           <input type="text" name="subject" placeholder="العنوان" required value="<?php if(isset($row['subject'])) echo $row['subject'];?>"> 
                         </div>
                         <br>
                         <div class="name">
@@ -87,7 +104,8 @@ if($_POST){
                                $result = mysqli_query($conn, $query);
                                if(mysqli_num_rows($result) > 0){
                                    while($r = mysqli_fetch_assoc($result)){
-                                       echo "<option value=".$r['id'].">".$r['name']."</option>";
+                                   $r['id'] == $row['category_id'] ? $s = "selected": $s=""; 
+                                   echo "<option $s value=".$r['id'].">".$r['name']."</option>";
                                    }
                                }
                                ?>
@@ -95,11 +113,14 @@ if($_POST){
                         </div>
                         <br>
                         <div class="name">
-                           <input type="file" name="img" placeholder="الصورة" required class="mystyle" title='اختر الصورة' accept="image/*"> 
+                           <input type="file" name="img" placeholder="الصورة" class="mystyle" title='اختر الصورة' accept="image/*"> 
+                            <img style="width: 70px; height: 70px;" src="<?php if(isset($row['img'])) echo 'img/'.$row['img'];?>">
                         </div>
                         <br>
                         <div class="name">
-                           <textarea type="text" name="details" placeholder="التفاصيل" required> </textarea>
+                           <textarea type="text" name="details" placeholder="التفاصيل" required>
+                           <?php if(isset($row['details'])) echo $row['details'];?>
+                           </textarea>
                         </div>
                         <br>
                         <div class="submit">

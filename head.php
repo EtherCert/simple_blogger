@@ -28,3 +28,4 @@
       <meta name="theme-color" content="#ffffff">
    </head>
    <body>
+<?php $conn = mysqli_connect('localhost', 'root','','blogger') or die("Error in connection");?>       
